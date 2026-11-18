@@ -1,0 +1,8 @@
+KOMMAHELD – Netlify-Anleitung
+
+Schnellster Weg: Den Ordner "netlify-upload" per Drag-and-Drop auf https://app.netlify.com/drop ziehen. Fertig.
+
+Alternativ: Ordner "quellcode" in ein Git-Repo legen und mit Netlify verbinden (netlify.toml ist enthalten).
+
+Lehrer-PIN: 1234 (in quellcode/src/routes/lehrer.tsx änderbar).
+Fortschritt wird im Browser (localStorage) gespeichert.
