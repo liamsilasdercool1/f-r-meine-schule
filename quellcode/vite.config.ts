@@ -8,11 +8,16 @@
 // hosting already compresses at the edge.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// On Netlify the server bundle is a Netlify Function that renders every route on demand.
+// The SPA shell prerender boots a Cloudflare-style preview server that the Netlify preset
+// does not emit, so it is only enabled outside of Netlify builds (e.g. in Lovable).
+const isNetlifyBuild = process.env.NETLIFY === "true";
+
 export default defineConfig({
   tanstackStart: {
     // Use the app's server wrapper and enable the SPA shell for static fallback.
     server: { entry: "server" },
-    spa: { enabled: true },
+    ...(isNetlifyBuild ? {} : { spa: { enabled: true } }),
   },
   // Generate the server bundle in Netlify Functions format.
   nitro: {
