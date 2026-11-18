@@ -1,9 +1,4 @@
 [build]
   base = "quellcode"
-  command = "npm install && npx vite build && cp dist/client/_shell.html dist/client/index.html"
+  command = "npm run build"
   publish = "dist/client"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
