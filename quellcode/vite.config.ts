@@ -1,12 +1,20 @@
 // @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
 // or the app will break with duplicate plugins:
 //   - TanStack devtools (dev-only, first), tanstackStart, viteReact, tailwindcss, tsConfigPaths,
-//     nitro/vite builds from this").
+//     nitro (build-only), VITE_* env injection, @ path alias, React/TanStack dedupe,
+//     error logger plugins, and sandbox detection (port/host/strictPort).
+// Never set ssr.external or resolve.external: the Worker has no runtime module resolution, so
+// the build fails. Never add compression (compressPublicAssets, vite-plugin-compression):
+// hosting already compresses at the edge.
+import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+
+export default defineConfig({
+  tanstackStart: {
+    // Use the app's server wrapper and enable the SPA shell for static fallback.
     server: { entry: "server" },
     spa: { enabled: true },
   },
-  // Use Nitro's Netlify adapter so the server bundle is emitted as Netlify Functions
-  // instead of the default Cloudflare/Node output expected by the previous config.
+  // Generate the server bundle in Netlify Functions format.
   nitro: {
     preset: "netlify",
   },
